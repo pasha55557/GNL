@@ -2,7 +2,8 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <unistd.h>
-#include "gnl.h"
+ 
+int		get_next_line(const int fd, char **line);
 
 int				main(void)
 {
