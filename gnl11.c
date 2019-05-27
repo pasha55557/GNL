@@ -20,8 +20,8 @@ int				main(void)
 	char		*filename2;
 	int			errors;
 
-	filename1 = "./srcs/gnl/gnl11_1.txt";
-	filename2 = "./srcs/gnl/gnl11_2.txt";
+	filename1 = "gnl11_1.txt";
+	filename2 = "gnl11_2.txt";
 	fd1 = open(filename1, O_RDONLY);
 	fd2 = open(filename2, O_RDONLY);
 	fd3 = -1;

@@ -6,7 +6,7 @@
 /*   By: rsticks <rsticks@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/25 17:38:16 by rsticks           #+#    #+#             */
-/*   Updated: 2019/05/18 16:12:35 by rsticks          ###   ########.fr       */
+/*   Updated: 2019/05/24 12:37:14 by rsticks          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <fcntl.h>
 //# include "get_next_line.h"
 # include "libft/libft.h"
-# define BUFF_SIZE 10
+# define BUFF_SIZE 20
 
 int		get_next_line(const int fd, char **line);
 
