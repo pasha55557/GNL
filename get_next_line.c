@@ -6,7 +6,7 @@
 /*   By: rsticks <rsticks@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/25 17:34:17 by rsticks           #+#    #+#             */
-/*   Updated: 2019/05/27 18:12:13 by rsticks          ###   ########.fr       */
+/*   Updated: 2019/05/29 17:56:49 by rsticks          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,6 @@ int		get_next_line(const int fd, char **line)
 		return (-1);
 	buf[0] = ft_strnew(BUFF_SIZE); // ВЫДЕЛИЛИ ПАМЯТЬ ПОД БУФЕР
 
-//	if (!line)
-//		return(-1);
-	/*
-	if (!(*line))
-	{
-	*line = (char*)malloc(sizeof(char));
-		**line = '\0';
-	} */
 	*line = (char*)malloc(sizeof(char));
 		**line = '\0';
 	
@@ -47,7 +39,6 @@ int		get_next_line(const int fd, char **line)
 			ft_strdel(line);
 			return (i);
 		}
-	//	buf[i] = '\0';
 	}
 	else // ЕСЛИ ЕСТЬ ОСТАТОК, ЗАПИСЫВАЕМ ЕГО В БУФЕР
 	{
@@ -66,9 +57,9 @@ int		get_next_line(const int fd, char **line)
 		{
 			buf[1] = ft_strnew(x);
 			buf[1] = ft_strncpy(buf[1], buf[0], x);
-			temp = *line;
-			*line = ft_strjoin(*line, buf[1]);
-			free(temp);
+			temp = ft_strjoin(*line, buf[1]);
+			free(*line);
+			*line = temp;
 			if_n = 1;
 			buf[0] = ft_strchr(buf[0], '\n');
 			ost_tab[fd] = ft_strnew(ft_strlen(++buf[0]));
