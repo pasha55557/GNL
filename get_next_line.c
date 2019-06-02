@@ -6,7 +6,7 @@
 /*   By: rsticks <rsticks@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/25 17:34:17 by rsticks           #+#    #+#             */
-/*   Updated: 2019/06/02 19:12:58 by rsticks          ###   ########.fr       */
+/*   Updated: 2019/06/02 20:12:30 by rsticks          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,11 @@ int				get_next_line(const int fd, char **line)
 	if (fd < 0 || fd > 10240 || !line)
 		return (-1);
 	buf = ft_strnew(BUFF_SIZE);
-	//if (*line == NULL)
-	//	*line = (char*)malloc(sizeof(char));
-	if (*line != NULL)
-		ft_bzero(*line, (ft_strlen(*line)));
+	*line = ft_strnew(0);
+//	if (*line == NULL)
+//		*line = (char*)malloc(sizeof(char));
+//	if (*line != NULL)
+//		ft_bzero(*line, (ft_strlen(*line)));
 	if (ost_tab[fd] != NULL)
 	{
 		buf = ft_strcpy(buf, ost_tab[fd]);
