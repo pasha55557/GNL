@@ -6,88 +6,72 @@
 /*   By: rsticks <rsticks@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/25 17:34:17 by rsticks           #+#    #+#             */
-/*   Updated: 2019/05/29 17:56:49 by rsticks          ###   ########.fr       */
+/*   Updated: 2019/06/02 19:12:58 by rsticks          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "get_next_line.h"
 
-int		get_next_line(const int fd, char **line)
+int				get_next_line(const int fd, char **line)
 {
-    char		*buf[2];
-	static char	*ost_tab[10240];
-    int			i;
-	int			x;
-	int			if_n;
+	struct 		s_gnl a;
+	char		*buf;
+	char		*buf2;
+	static char	*ost_tab[10241];
 	char		*temp;
 
-// ПРОВЕРОЧКИ
-	x = 0;
-	if_n = 0;
+	a.if_n = 0;
 	if (fd < 0 || fd > 10240 || !line)
 		return (-1);
-	buf[0] = ft_strnew(BUFF_SIZE); // ВЫДЕЛИЛИ ПАМЯТЬ ПОД БУФЕР
-
-	*line = (char*)malloc(sizeof(char));
-		**line = '\0';
-	
-	if (ost_tab[fd] == NULL) // ЕСЛИ НЕТ ОСТАТКА
+	buf = ft_strnew(BUFF_SIZE);
+	//if (*line == NULL)
+	//	*line = (char*)malloc(sizeof(char));
+	if (*line != NULL)
+		ft_bzero(*line, (ft_strlen(*line)));
+	if (ost_tab[fd] != NULL)
 	{
-		i = read(fd, buf[0], BUFF_SIZE);
-		if (i <= 0) 
-		{
-			ft_strdel(line);
-			return (i);
-		}
-	}
-	else // ЕСЛИ ЕСТЬ ОСТАТОК, ЗАПИСЫВАЕМ ЕГО В БУФЕР
-	{
-		buf[0] = ft_strcpy(buf[0], ost_tab[fd]);
+		buf = ft_strcpy(buf, ost_tab[fd]);
 		ft_strdel(&ost_tab[fd]);
 	}
-	
-	
-// ОСНОВА
-	while (if_n == 0) // УЖЕ БЫЛ '\n' В ПРЕДИДУЩЕМ ЦИКЛЕ?
+	while (a.if_n == 0)
 	{
-		x = 0;
-		while ((buf[0][x] != '\0') && (buf[0][x] != '\n')) // идем до конца строки или конца всего
-			x++;
-		if (buf[0][x] == '\n') // ECЛИ ВСТРЕТИЛИ '\n'
+		a.x = 0;
+		while ((buf[a.x] != '\0') && (buf[a.x] != '\n'))
+			a.x++;
+		if (buf[a.x] == '\n')
 		{
-			buf[1] = ft_strnew(x);
-			buf[1] = ft_strncpy(buf[1], buf[0], x);
-			temp = ft_strjoin(*line, buf[1]);
-			free(*line);
-			*line = temp;
-			if_n = 1;
-			buf[0] = ft_strchr(buf[0], '\n');
-			ost_tab[fd] = ft_strnew(ft_strlen(++buf[0]));
-			ost_tab[fd] = ft_strcpy(ost_tab[fd], buf[0]);
-			ft_strdel(&buf[1]);
+			buf2 = ft_strnew(a.x);
+			buf2 = ft_strncpy(buf2, buf, a.x);
+			temp = *line;
+			*line = ft_strjoin(*line, buf2);
+			free(temp);
+			a.if_n = 1;
+			temp = ft_strchr(buf, '\n');
+			ost_tab[fd] = ft_strnew(ft_strlen(++temp));
+			ost_tab[fd] = ft_strcpy(ost_tab[fd], temp);
+			ft_strdel(&buf2);
+			ft_strdel(&buf);
 		}
-		else if (buf[0][x] == '\0')  // ЕСЛИ ВСТРЕТИЛИ '\0'
+		else if (buf[a.x] == '\0')
 		{
 			temp = *line;
-			*line = ft_strjoin(*line, buf[0]);
+			*line = ft_strjoin(*line, buf);
 			free(temp);
-			ft_bzero(buf[0], BUFF_SIZE + 1);
-			i = read(fd, buf[0], BUFF_SIZE);
-			if (i <= 0)
+			ft_bzero(buf, BUFF_SIZE + 1);
+			a.i = read(fd, buf, BUFF_SIZE);
+			if (a.i <= 0)
 			{
-				ft_strdel(&buf[0]);
+				ft_strdel(&buf);
 				if (*line && **line != '\0')
-				return (1);
+					return (1);
 				else
 				{
-				ft_strdel(line);
-				return (i);	
+					ft_strdel(line); 
+					return (a.i);
 				}
-				
-			}	
+			}
 		}
 	}
-// КОНЦОВКА
-//ft_strdel(&buf[0]);
-	return (1);	
+	return (1);
 }
