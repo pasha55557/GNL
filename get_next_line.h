@@ -6,7 +6,7 @@
 /*   By: rsticks <rsticks@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/25 17:38:16 by rsticks           #+#    #+#             */
-/*   Updated: 2019/05/31 18:19:59 by rsticks          ###   ########.fr       */
+/*   Updated: 2019/06/03 15:30:38 by rsticks          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 
 struct			s_gnl
 {
+	char		*buf;
+	char		*buf2;
+	char		*temp;
 	int			i;
 	int			x;
 	int			if_n;
