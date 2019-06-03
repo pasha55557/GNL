@@ -6,30 +6,26 @@
 /*   By: rsticks <rsticks@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/25 17:34:17 by rsticks           #+#    #+#             */
-/*   Updated: 2019/06/02 20:12:30 by rsticks          ###   ########.fr       */
+/*   Updated: 2019/06/03 14:47:44 by rsticks          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "get_next_line.h"
 
-int				get_next_line(const int fd, char **line)
+int					get_next_line(const int fd, char **line)
 {
-	struct 		s_gnl a;
-	char		*buf;
-	char		*buf2;
-	static char	*ost_tab[10241];
-	char		*temp;
+	struct s_gnl	a;
+	char			*buf;
+	char			*buf2;
+	static char		*ost_tab[10241];
+	char			*temp;
 
-	a.if_n = 0;
+	a.if_n = 0; 
 	if (fd < 0 || fd > 10240 || !line)
 		return (-1);
 	buf = ft_strnew(BUFF_SIZE);
 	*line = ft_strnew(0);
-//	if (*line == NULL)
-//		*line = (char*)malloc(sizeof(char));
-//	if (*line != NULL)
-//		ft_bzero(*line, (ft_strlen(*line)));
 	if (ost_tab[fd] != NULL)
 	{
 		buf = ft_strcpy(buf, ost_tab[fd]);
@@ -67,10 +63,7 @@ int				get_next_line(const int fd, char **line)
 				if (*line && **line != '\0')
 					return (1);
 				else
-				{
-					ft_strdel(line); 
 					return (a.i);
-				}
 			}
 		}
 	}
